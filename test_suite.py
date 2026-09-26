@@ -16,7 +16,7 @@ def test_start_service():
     """
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == ["API Service is Running..."]
+    assert response.json() == {"Message": "API Service is Running..."}
 
 @patch("main.httpx.AsyncClient")
 def test_gateway_invalid_route(mock_client):
