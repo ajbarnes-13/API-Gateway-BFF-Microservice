@@ -35,7 +35,7 @@ def start_service():
     Confirms the service is running.
     :return: Confirmation message that the service is running.
     """
-    return {"API Service is Running..."}
+    return {"Message": "API Service is Running..."}
 
 # BFF (Backend-for-Frontend) Aggregator
 @app.post("/aggregate")
