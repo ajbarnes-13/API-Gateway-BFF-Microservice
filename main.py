@@ -6,7 +6,7 @@
 # as an asynchronous framework to handle multiple requests at once.
 
 import httpx
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 
 # sets the FastAPI class as the app variable.
 app = FastAPI()
@@ -50,3 +50,20 @@ async def get_user(user_id: int):
             return response.json()
     except:
         return {"Error": "User service is unavailable."}
+
+@app.api_route("/{path:path}", methods=["GET", "POST", "PUT", "DELETE"])
+async def proxy_traffic(request: Request, path: str):
+    target_url = f"http://internal-backend/{path}"
+    body_data = await request.body()
+
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.request(
+                method=request.method,
+                url=target_url,
+                content=body_data,
+                params=request.query_params
+            )
+            return response.json()
+    except:
+        return {"Error": "Proxy service is unavailable."}
