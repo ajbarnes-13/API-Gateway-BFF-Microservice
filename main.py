@@ -49,4 +49,4 @@ async def get_user(user_id: int):
             response = await client.get(f"http://nodejs-user-backend/api/users/{user_id}")
             return response.json()
     except:
-        return {"Error": "User service is currently unavailable."}
+        return {"Error": "User service is unavailable."}
